@@ -54,13 +54,13 @@ const SampleMenusDialog = ({ children }: { children: React.ReactNode }) => {
       { name: "Butternut Squash Risotto", description: "Fresh Sage | VEGAN/GLUTEN FREE" },
     ],
     dessert: [
-      { name: "Mini Desserts", description: "Lemon Lavender Cookies | Tres Leches Cupcakes | Carrot Cake Cupcakes" },
+      { name: "Lemon Lavender Cookies | Tres Leches Cupcakes | Carrot Cake Cupcakes" },
     ],
     coffee: [
-      { name: "Coffee & Tea Station", description: "Regular | Decaf | Assorted Sweeteners | Cream" },
+      { name: "Regular | Decaf | Assorted Sweeteners | Cream" },
     ],
     lateNight: [
-      { name: "Late Night", description: "Pizza passed in paper boats, then set on station" },
+      { name: "Pizza passed in paper boats, then set on station" },
     ],
   };
 
@@ -78,7 +78,7 @@ const SampleMenusDialog = ({ children }: { children: React.ReactNode }) => {
       { name: "Grilled Vegetables", description: "Bed of quinoa | Drizzled with balsamic glaze" },
     ],
     dessert: [
-      { name: "Mini Desserts", description: "Kahlua brownies | S'mores cookies | Carrot cake cupcakes | Chocolate raspberry tarts" },
+      { name: "Kahlua brownies | S'mores cookies | Carrot cake cupcakes | Chocolate raspberry tarts" },
     ],
   };
 
@@ -90,7 +90,7 @@ const SampleMenusDialog = ({ children }: { children: React.ReactNode }) => {
       { name: "Prosciutto Wrapped Figs", description: "Gorgonzola | Honey Drizzle" },
     ],
     dessert: [
-      { name: "Mini Desserts", description: "Chocolate Truffles | Macarons | Fruit Tartlets | Espresso Brownies" },
+      { name: "Chocolate Truffles | Macarons | Fruit Tartlets | Espresso Brownies" },
     ],
   };
 
@@ -145,12 +145,6 @@ const SampleMenusDialog = ({ children }: { children: React.ReactNode }) => {
             <MenuSection title="MINI DESSERTS" items={corporateMenu.dessert} />
           </TabsContent>
         </Tabs>
-
-        <div className="text-center mt-8 pt-4 border-t border-primary/20">
-          <p className="text-muted-foreground text-sm">
-            Danielle Wheeler | <a href="mailto:Danielle@MaisonCuisine.com" className="text-primary hover:underline">Danielle@MaisonCuisine.com</a> | 312.315.4479
-          </p>
-        </div>
       </DialogContent>
     </Dialog>
   );
