@@ -15,9 +15,9 @@ const mainNavLinks = [
 ];
 
 const servicesLinks = [
+  { name: "Weddings", href: "#weddings" },
   { name: "Events", href: "#events" },
   { name: "Corporate", href: "#corporate" },
-  { name: "Weddings", href: "#weddings" },
 ];
 
 const Navbar = () => {

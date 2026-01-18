@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import logo from "@/assets/maison-logo.png";
+
 
 interface MenuSectionProps {
   title: string;
@@ -99,7 +99,7 @@ const SampleMenusDialog = ({ children }: { children: React.ReactNode }) => {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-background">
         <DialogHeader className="text-center pb-4">
-          <img src={logo} alt="Maison Cuisine" className="h-16 mx-auto mb-4" />
+          <p className="font-serif text-2xl tracking-wide text-foreground mb-2">Maison Cuisine</p>
           <DialogTitle className="font-serif text-3xl tracking-wide">Sample Menus</DialogTitle>
         </DialogHeader>
 
