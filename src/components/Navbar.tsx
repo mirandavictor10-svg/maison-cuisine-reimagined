@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/maison-logo.png";
+import SampleMenusDialog from "./SampleMenusDialog";
 
 const navLinks = [
   { name: "Plan Your Experience", href: "#experience" },
@@ -18,21 +20,26 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="/" className="font-serif text-2xl tracking-wide">
-            Maison Cuisine
+          <a href="/" className="flex items-center gap-3">
+            <img src={logo} alt="Maison Cuisine" className="h-14" />
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-10">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="nav-link text-foreground/80 hover:text-foreground"
+                className="nav-link text-foreground/80 hover:text-foreground text-sm"
               >
                 {link.name}
               </a>
             ))}
+            <SampleMenusDialog>
+              <button className="nav-link text-foreground/80 hover:text-foreground text-sm cursor-pointer">
+                Sample Menus
+              </button>
+            </SampleMenusDialog>
           </div>
 
           {/* Mobile Menu Button */}
@@ -59,6 +66,14 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
+              <SampleMenusDialog>
+                <button 
+                  onClick={() => setIsOpen(false)}
+                  className="nav-link text-foreground/80 hover:text-foreground py-2 text-left cursor-pointer"
+                >
+                  Sample Menus
+                </button>
+              </SampleMenusDialog>
             </div>
           </div>
         )}
