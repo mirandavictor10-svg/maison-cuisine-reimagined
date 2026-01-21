@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import SampleMenusDialog from "./SampleMenusDialog";
 const servicesLinks = [
   { name: "Weddings", href: "/#weddings" },
   { name: "Corporate", href: "/#corporate" },
@@ -115,12 +115,11 @@ const Navbar = () => {
             >
               Contact
             </a>
-            <Link
-              to="/menus"
-              className="nav-link text-foreground/80 hover:text-foreground text-sm"
-            >
-              Menus
-            </Link>
+            <SampleMenusDialog>
+              <button className="nav-link text-foreground/80 hover:text-foreground text-sm">
+                Menus
+              </button>
+            </SampleMenusDialog>
           </div>
 
           {/* Mobile Menu Button */}
@@ -213,13 +212,14 @@ const Navbar = () => {
               >
                 Contact
               </a>
-              <Link
-                to="/menus"
-                onClick={() => setIsOpen(false)}
-                className="nav-link text-foreground/80 hover:text-foreground py-2"
-              >
-                Menus
-              </Link>
+              <SampleMenusDialog>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="nav-link text-foreground/80 hover:text-foreground py-2 text-left w-full"
+                >
+                  Menus
+                </button>
+              </SampleMenusDialog>
             </div>
           </div>
         )}
