@@ -122,7 +122,7 @@ const SampleMenusDialog = ({ children }: SampleMenusDialogProps) => {
               <MenuSection
                 title="Late Night"
                 items={[
-                  "Pizza to be delivered (Maison to pass in paper boats, then set on station)",
+                  "Mini Burgers | Chicago Style Hot Dogs",
                 ]}
               />
             </TabsContent>
