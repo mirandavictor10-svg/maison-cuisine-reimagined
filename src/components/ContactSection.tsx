@@ -80,7 +80,7 @@ const ContactSection = () => {
                 <div>
                   <h4 className="font-medium text-foreground mb-1">Location</h4>
                   <p className="text-muted-foreground">
-                    Serving the Greater Metropolitan Area<br />
+                    Serving the Greater Chicago Area<br />
                     and beyond
                   </p>
                 </div>
