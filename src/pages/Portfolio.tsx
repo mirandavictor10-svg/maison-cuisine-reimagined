@@ -46,14 +46,6 @@ const portfolioItems: PortfolioItem[] = [
   },
   {
     id: 4,
-    src: gallery2,
-    alt: "Corporate dinner setting",
-    category: "venues",
-    caption: "The Langham Chicago",
-    gallery: [gallery2, eventsHero],
-  },
-  {
-    id: 5,
     src: gallery3,
     alt: "Dessert display",
     category: "cuisine",
@@ -61,7 +53,7 @@ const portfolioItems: PortfolioItem[] = [
     gallery: [gallery3, gallery1],
   },
   {
-    id: 6,
+    id: 5,
     src: gallery4,
     alt: "Private dining experience",
     category: "events",
@@ -69,20 +61,21 @@ const portfolioItems: PortfolioItem[] = [
     gallery: [gallery4, heroWedding],
   },
   {
-    id: 7,
+    id: 6,
     src: chefPortrait,
     alt: "Chef preparing cuisine",
     category: "cuisine",
     caption: "Executive Chef crafting seasonal plates",
     gallery: [chefPortrait, gallery1],
   },
+  // The Fairlie - 7 venue images
   {
-    id: 8,
-    src: heroWedding,
-    alt: "Garden venue",
+    id: 7,
+    src: gallery2,
+    alt: "The Fairlie ceremony setup",
     category: "venues",
-    caption: "Private Estate Gardens",
-    gallery: [heroWedding, eventsHero],
+    caption: "The Fairlie",
+    gallery: [gallery2, heroWedding, eventsHero, gallery1, gallery3, gallery4, chefPortrait],
   },
 ];
 
