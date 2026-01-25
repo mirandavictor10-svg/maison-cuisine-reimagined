@@ -9,6 +9,13 @@ import gallery4 from "@/assets/gallery-4.jpg";
 import heroWedding from "@/assets/hero-wedding.jpg";
 import eventsHero from "@/assets/events-hero.jpg";
 import chefPortrait from "@/assets/chef-portrait.jpg";
+import fairlie1 from "@/assets/fairlie-1.jpg";
+import fairlie2 from "@/assets/fairlie-2.jpg";
+import fairlie3 from "@/assets/fairlie-3.jpg";
+import fairlie4 from "@/assets/fairlie-4.jpg";
+import fairlie5 from "@/assets/fairlie-5.jpg";
+import fairlie6 from "@/assets/fairlie-6.jpg";
+import fairlie7 from "@/assets/fairlie-7.jpg";
 
 interface PortfolioItem {
   id: number;
@@ -68,14 +75,14 @@ const portfolioItems: PortfolioItem[] = [
     caption: "Executive Chef crafting seasonal plates",
     gallery: [chefPortrait, gallery1],
   },
-  // The Fairlie - 7 venue images
+  // The Fairlie venue
   {
     id: 7,
-    src: gallery2,
+    src: fairlie1,
     alt: "The Fairlie ceremony setup",
     category: "venues",
     caption: "The Fairlie",
-    gallery: [gallery2, heroWedding, eventsHero, gallery1, gallery3, gallery4, chefPortrait],
+    gallery: [fairlie1, fairlie2, fairlie3, fairlie4, fairlie5, fairlie6, fairlie7],
   },
 ];
 
