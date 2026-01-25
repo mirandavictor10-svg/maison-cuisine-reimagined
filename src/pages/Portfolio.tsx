@@ -9,13 +9,13 @@ import gallery4 from "@/assets/gallery-4.jpg";
 import heroWedding from "@/assets/hero-wedding.jpg";
 import eventsHero from "@/assets/events-hero.jpg";
 import chefPortrait from "@/assets/chef-portrait.jpg";
-import fairlie1 from "@/assets/fairlie-1.jpg";
-import fairlie2 from "@/assets/fairlie-2.jpg";
-import fairlie3 from "@/assets/fairlie-3.jpg";
-import fairlie4 from "@/assets/fairlie-4.jpg";
-import fairlie5 from "@/assets/fairlie-5.jpg";
-import fairlie6 from "@/assets/fairlie-6.jpg";
-import fairlie7 from "@/assets/fairlie-7.jpg";
+import fairlie1 from "@/assets/fairlie-1.png";
+import fairlie2 from "@/assets/fairlie-2.png";
+import fairlie3 from "@/assets/fairlie-3.png";
+import fairlie4 from "@/assets/fairlie-4.png";
+import fairlie5 from "@/assets/fairlie-5.png";
+import fairlie6 from "@/assets/fairlie-6.png";
+import fairlie7 from "@/assets/fairlie-7.png";
 
 interface PortfolioItem {
   id: number;
