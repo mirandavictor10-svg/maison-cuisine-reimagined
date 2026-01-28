@@ -23,6 +23,11 @@ import sarabande1 from "@/assets/sarabande-1.jpg";
 import sarabande2 from "@/assets/sarabande-2.jpeg";
 import sarabande3 from "@/assets/sarabande-3.jpg";
 
+// GreenHouse Loft images
+import greenhouse1 from "@/assets/greenhouse-1.jpg";
+import greenhouse2 from "@/assets/greenhouse-2.webp";
+import greenhouse3 from "@/assets/greenhouse-3.jpg";
+
 interface PortfolioItem {
   id: number;
   src: string;
@@ -108,14 +113,14 @@ const portfolioItems: PortfolioItem[] = [
     caption: "Sarabande",
     gallery: [sarabande1, sarabande2, sarabande3],
   },
-  // Greenhouse Room - images pending
+  // GreenHouse Loft
   {
     id: 10,
-    src: gallery3, // Placeholder
-    alt: "Greenhouse Room venue",
+    src: greenhouse1,
+    alt: "GreenHouse Loft venue",
     category: "venues",
-    caption: "Greenhouse Room",
-    gallery: [gallery3],
+    caption: "GreenHouse Loft",
+    gallery: [greenhouse1, greenhouse2, greenhouse3],
   },
 ];
 
