@@ -18,6 +18,11 @@ import fairlie3 from "@/assets/fairlie-3.jpg";
 import loftLucia1 from "@/assets/loft-lucia-1.avif";
 import loftLucia2 from "@/assets/loft-lucia-2.webp";
 
+// Sarabande images
+import sarabande1 from "@/assets/sarabande-1.jpg";
+import sarabande2 from "@/assets/sarabande-2.jpeg";
+import sarabande3 from "@/assets/sarabande-3.jpg";
+
 interface PortfolioItem {
   id: number;
   src: string;
@@ -94,14 +99,14 @@ const portfolioItems: PortfolioItem[] = [
     caption: "Loft Lucia",
     gallery: [loftLucia1, loftLucia2],
   },
-  // Sarabande - images pending
+  // Sarabande
   {
     id: 9,
-    src: gallery2, // Placeholder
+    src: sarabande3,
     alt: "Sarabande venue",
     category: "venues",
     caption: "Sarabande",
-    gallery: [gallery2],
+    gallery: [sarabande1, sarabande2, sarabande3],
   },
   // Greenhouse Room - images pending
   {
