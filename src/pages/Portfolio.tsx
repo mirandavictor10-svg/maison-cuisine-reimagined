@@ -9,13 +9,9 @@ import gallery4 from "@/assets/gallery-4.jpg";
 import heroWedding from "@/assets/hero-wedding.jpg";
 import eventsHero from "@/assets/events-hero.jpg";
 import chefPortrait from "@/assets/chef-portrait.jpg";
-import fairlie1 from "@/assets/fairlie-1.png";
-import fairlie2 from "@/assets/fairlie-2.png";
-import fairlie3 from "@/assets/fairlie-3.png";
-import fairlie4 from "@/assets/fairlie-4.png";
-import fairlie5 from "@/assets/fairlie-5.png";
-import fairlie6 from "@/assets/fairlie-6.png";
-import fairlie7 from "@/assets/fairlie-7.png";
+// Fairlie images - will be added when uploaded
+// import fairlie1 from "@/assets/fairlie-1.png";
+// import fairlie2 from "@/assets/fairlie-2.png";
 
 interface PortfolioItem {
   id: number;
@@ -75,14 +71,41 @@ const portfolioItems: PortfolioItem[] = [
     caption: "Executive Chef crafting seasonal plates",
     gallery: [chefPortrait, gallery1],
   },
-  // The Fairlie venue
+  // The Fairlie venue - images pending upload
   {
     id: 7,
-    src: fairlie1,
-    alt: "The Fairlie ceremony setup",
+    src: gallery4, // Placeholder until Fairlie images are uploaded
+    alt: "The Fairlie venue",
     category: "venues",
     caption: "The Fairlie",
-    gallery: [fairlie1, fairlie2, fairlie3, fairlie4, fairlie5, fairlie6, fairlie7],
+    gallery: [gallery4], // Will be updated with actual Fairlie images
+  },
+  // Loft Lucia - images pending
+  {
+    id: 8,
+    src: gallery1, // Placeholder
+    alt: "Loft Lucia venue",
+    category: "venues",
+    caption: "Loft Lucia",
+    gallery: [gallery1],
+  },
+  // Sarabande - images pending
+  {
+    id: 9,
+    src: gallery2, // Placeholder
+    alt: "Sarabande venue",
+    category: "venues",
+    caption: "Sarabande",
+    gallery: [gallery2],
+  },
+  // Greenhouse Room - images pending
+  {
+    id: 10,
+    src: gallery3, // Placeholder
+    alt: "Greenhouse Room venue",
+    category: "venues",
+    caption: "Greenhouse Room",
+    gallery: [gallery3],
   },
 ];
 
