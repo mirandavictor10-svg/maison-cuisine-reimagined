@@ -9,9 +9,10 @@ import gallery4 from "@/assets/gallery-4.jpg";
 import heroWedding from "@/assets/hero-wedding.jpg";
 import eventsHero from "@/assets/events-hero.jpg";
 import chefPortrait from "@/assets/chef-portrait.jpg";
-// Fairlie images - pending upload
-// import fairlie1 from "@/assets/fairlie-1.png";
-// import fairlie2 from "@/assets/fairlie-2.png";
+// Fairlie images
+import fairlie1 from "@/assets/fairlie-1.jpg";
+import fairlie2 from "@/assets/fairlie-2.jpg";
+import fairlie3 from "@/assets/fairlie-3.jpg";
 
 // Loft Lucia images
 import loftLucia1 from "@/assets/loft-lucia-1.avif";
@@ -75,14 +76,14 @@ const portfolioItems: PortfolioItem[] = [
     caption: "Executive Chef crafting seasonal plates",
     gallery: [chefPortrait, gallery1],
   },
-  // The Fairlie venue - images pending upload
+  // The Fairlie venue
   {
     id: 7,
-    src: gallery4, // Placeholder until Fairlie images are uploaded
+    src: fairlie1,
     alt: "The Fairlie venue",
     category: "venues",
     caption: "The Fairlie",
-    gallery: [gallery4], // Will be updated with actual Fairlie images
+    gallery: [fairlie1, fairlie2, fairlie3],
   },
   // Loft Lucia
   {
