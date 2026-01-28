@@ -9,9 +9,13 @@ import gallery4 from "@/assets/gallery-4.jpg";
 import heroWedding from "@/assets/hero-wedding.jpg";
 import eventsHero from "@/assets/events-hero.jpg";
 import chefPortrait from "@/assets/chef-portrait.jpg";
-// Fairlie images - will be added when uploaded
+// Fairlie images - pending upload
 // import fairlie1 from "@/assets/fairlie-1.png";
 // import fairlie2 from "@/assets/fairlie-2.png";
+
+// Loft Lucia images
+import loftLucia1 from "@/assets/loft-lucia-1.avif";
+import loftLucia2 from "@/assets/loft-lucia-2.webp";
 
 interface PortfolioItem {
   id: number;
@@ -80,14 +84,14 @@ const portfolioItems: PortfolioItem[] = [
     caption: "The Fairlie",
     gallery: [gallery4], // Will be updated with actual Fairlie images
   },
-  // Loft Lucia - images pending
+  // Loft Lucia
   {
     id: 8,
-    src: gallery1, // Placeholder
+    src: loftLucia1,
     alt: "Loft Lucia venue",
     category: "venues",
     caption: "Loft Lucia",
-    gallery: [gallery1],
+    gallery: [loftLucia1, loftLucia2],
   },
   // Sarabande - images pending
   {
