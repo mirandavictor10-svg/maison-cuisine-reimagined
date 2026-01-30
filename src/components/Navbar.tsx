@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -18,19 +18,23 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
     
-    // If we're on a different page and clicking an anchor link
-    if (href.startsWith("/#") && location.pathname !== "/") {
-      window.location.href = href;
-    } else if (href.startsWith("/#")) {
-      const anchor = href.replace("/#", "#");
-      const element = document.querySelector(anchor);
+    // Extract the hash from the href (e.g., "/#about" -> "#about")
+    const hash = href.replace("/", "");
+    
+    if (location.pathname === "/") {
+      // Already on home page, just scroll to the section
+      const element = document.querySelector(hash);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
+    } else {
+      // Navigate to home page with hash
+      navigate("/" + hash);
     }
   };
 
