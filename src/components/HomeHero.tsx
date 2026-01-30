@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import heroWedding from "@/assets/hero-wedding.jpg";
+import PortfolioDialog from "./PortfolioDialog";
 
 const HomeHero = () => {
   return (
@@ -36,12 +36,11 @@ const HomeHero = () => {
           <a href="#experience" className="btn-hero">
             Plan Your Experience
           </a>
-          <Link
-            to="/portfolio"
-            className="px-8 py-4 border border-white/60 text-white hover:bg-white/10 transition-colors duration-300 font-medium tracking-wide"
-          >
-            View Portfolio
-          </Link>
+          <PortfolioDialog>
+            <button className="px-8 py-4 border border-white/60 text-white hover:bg-white/10 transition-colors duration-300 font-medium tracking-wide">
+              View Portfolio
+            </button>
+          </PortfolioDialog>
         </div>
       </div>
 

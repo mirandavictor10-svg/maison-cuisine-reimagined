@@ -8,6 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import SampleMenusDialog from "./SampleMenusDialog";
+import PortfolioDialog from "./PortfolioDialog";
+
 const servicesLinks = [
   { name: "Weddings", href: "/#weddings" },
   { name: "Corporate", href: "/#corporate" },
@@ -89,12 +91,11 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link
-              to="/portfolio"
-              className="nav-link text-foreground/80 hover:text-foreground text-sm"
-            >
-              Portfolio
-            </Link>
+            <PortfolioDialog>
+              <button className="nav-link text-foreground/80 hover:text-foreground text-sm">
+                Portfolio
+              </button>
+            </PortfolioDialog>
 
             <a
               href="/#about"
@@ -185,13 +186,14 @@ const Navbar = () => {
                 </div>
               )}
 
-              <Link
-                to="/portfolio"
-                onClick={() => setIsOpen(false)}
-                className="nav-link text-foreground/80 hover:text-foreground py-2"
-              >
-                Portfolio
-              </Link>
+              <PortfolioDialog>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="nav-link text-foreground/80 hover:text-foreground py-2 text-left w-full"
+                >
+                  Portfolio
+                </button>
+              </PortfolioDialog>
 
               <a
                 href="/#about"
