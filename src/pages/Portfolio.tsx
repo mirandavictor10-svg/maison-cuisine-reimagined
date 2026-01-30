@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -136,6 +136,11 @@ const Portfolio = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState<PortfolioItem | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const filteredItems =
     activeFilter === "all"
