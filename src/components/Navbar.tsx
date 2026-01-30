@@ -59,7 +59,7 @@ const Navbar = () => {
             </a>
 
             {/* Services Dropdown */}
-            <DropdownMenu>
+            <DropdownMenu open={servicesOpen} onOpenChange={setServicesOpen}>
               <DropdownMenuTrigger className="nav-link text-foreground/80 hover:text-foreground text-sm flex items-center gap-1 cursor-pointer">
                 Services
                 <ChevronDown size={14} />
@@ -74,6 +74,7 @@ const Navbar = () => {
                           e.preventDefault();
                           handleNavClick(link.href);
                         }
+                        setServicesOpen(false);
                       }}
                       className="cursor-pointer text-foreground/80 hover:text-foreground"
                     >
