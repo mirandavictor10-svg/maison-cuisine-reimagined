@@ -1,4 +1,5 @@
 import chefPortrait from "@/assets/chef-portrait.jpg";
+import QuestionnaireDialog from "./QuestionnaireDialog";
 
 const AboutSection = () => {
   return (
@@ -43,7 +44,7 @@ const AboutSection = () => {
               aspect of our service reflects our commitment to excellence.
             </p>
 
-            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border">
+            <div className="grid grid-cols-3 gap-6 pt-6 border-t border-border mb-8">
               <div className="text-center">
                 <p className="font-serif text-3xl text-primary">500+</p>
                 <p className="text-sm text-muted-foreground">Events Catered</p>
@@ -57,6 +58,12 @@ const AboutSection = () => {
                 <p className="text-sm text-muted-foreground">Satisfaction</p>
               </div>
             </div>
+
+            <QuestionnaireDialog>
+              <button className="btn-elegant">
+                Start Your Journey
+              </button>
+            </QuestionnaireDialog>
           </div>
         </div>
       </div>

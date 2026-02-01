@@ -1,4 +1,5 @@
 import gallery2 from "@/assets/gallery-2.jpg";
+import QuestionnaireDialog from "./QuestionnaireDialog";
 
 const CorporateSection = () => {
   const services = [
@@ -53,7 +54,7 @@ const CorporateSection = () => {
               events require precision, professionalism, and impeccable service.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 gap-6 mb-8">
               {services.map((service, index) => (
                 <div key={index} className="border-l-2 border-primary/30 pl-4">
                   <h4 className="font-serif text-lg text-foreground mb-1">
@@ -65,6 +66,12 @@ const CorporateSection = () => {
                 </div>
               ))}
             </div>
+
+            <QuestionnaireDialog>
+              <button className="btn-elegant">
+                Plan Your Corporate Event
+              </button>
+            </QuestionnaireDialog>
           </div>
         </div>
       </div>
