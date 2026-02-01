@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import QuestionnaireDialog from "./QuestionnaireDialog";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -224,6 +225,16 @@ const PortfolioDialog = ({ children }: PortfolioDialogProps) => {
                   )}
                 </div>
               ))}
+            </div>
+
+            {/* CTA */}
+            <div className="text-center mt-8 pb-4">
+              <p className="text-muted-foreground mb-4">Ready to create your own memorable experience?</p>
+              <QuestionnaireDialog>
+                <button className="btn-elegant">
+                  Begin Your Journey
+                </button>
+              </QuestionnaireDialog>
             </div>
           </div>
         </div>

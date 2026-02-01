@@ -1,4 +1,5 @@
 import eventsHero from "@/assets/events-hero.jpg";
+import QuestionnaireDialog from "./QuestionnaireDialog";
 
 const EventsSection = () => {
   const eventTypes = [
@@ -43,7 +44,7 @@ const EventsSection = () => {
         </div>
 
         {/* Event Types Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {eventTypes.map((event, index) => (
             <div
               key={index}
@@ -57,6 +58,15 @@ const EventsSection = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* CTA */}
+        <div className="text-center">
+          <QuestionnaireDialog>
+            <button className="btn-elegant">
+              Plan Your Private Event
+            </button>
+          </QuestionnaireDialog>
         </div>
       </div>
     </section>

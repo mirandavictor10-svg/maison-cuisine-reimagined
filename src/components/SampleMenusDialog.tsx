@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import QuestionnaireDialog from "./QuestionnaireDialog";
 
 interface MenuSectionProps {
   title: string;
@@ -183,6 +184,18 @@ const SampleMenusDialog = ({ children }: SampleMenusDialogProps) => {
                 ]}
               />
             </TabsContent>
+
+            {/* CTA at bottom */}
+            <div className="px-8 py-6 text-center border-t border-border/30">
+              <p className="text-muted-foreground text-sm mb-4">
+                Love what you see? Let's create your perfect menu.
+              </p>
+              <QuestionnaireDialog>
+                <button className="btn-elegant">
+                  Request a Consultation
+                </button>
+              </QuestionnaireDialog>
+            </div>
           </ScrollArea>
         </Tabs>
       </DialogContent>
