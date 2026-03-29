@@ -11,15 +11,17 @@ const HomeHero = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    const onMetadata = () => {
+    const onReady = () => {
       video.currentTime = 0;
       setVideoReady(true);
     };
 
-    video.addEventListener("loadedmetadata", onMetadata);
-    if (video.readyState >= 1) onMetadata();
+    // canplay is more reliable than loadedmetadata for seeking on mobile
+    video.addEventListener("canplay", onReady, { once: true });
+    // Explicitly trigger load — mobile browsers often skip preload
+    video.load();
 
-    return () => video.removeEventListener("loadedmetadata", onMetadata);
+    return () => video.removeEventListener("canplay", onReady);
   }, []);
 
   useEffect(() => {
@@ -73,9 +75,11 @@ const HomeHero = () => {
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
           src="/catering-transition.mp4"
+          poster="/catering-poster.jpg"
           muted
           playsInline
           preload="auto"
+          x-webkit-airplay="deny"
         />
 
         {/* Content — starts at bottom, slides up as video scrubs */}
