@@ -4,6 +4,7 @@ import PortfolioDialog from "./PortfolioDialog";
 const HomeHero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
@@ -26,7 +27,8 @@ const HomeHero = () => {
 
     const video = videoRef.current;
     const section = sectionRef.current;
-    if (!video || !section) return;
+    const content = contentRef.current;
+    if (!video || !section || !content) return;
 
     let ticking = false;
 
@@ -39,7 +41,15 @@ const HomeHero = () => {
       const scrollable = sectionHeight - windowHeight;
       const progress = Math.max(0, Math.min(1, (scrollTop - sectionTop) / scrollable));
 
+      // Scrub video
       video.currentTime = progress * video.duration;
+
+      // Slide text up: from bottom toward the darker ceiling area
+      const contentHeight = content.offsetHeight;
+      const topPadding = 96; // clear the navbar
+      const maxTranslate = windowHeight - contentHeight - topPadding;
+      content.style.transform = `translateY(${-progress * maxTranslate}px)`;
+
       ticking = false;
     };
 
@@ -68,8 +78,11 @@ const HomeHero = () => {
           preload="auto"
         />
 
-        {/* Content */}
-        <div className="relative z-10 h-full flex flex-col items-start justify-end pb-10 px-5 md:pb-16 md:px-16">
+        {/* Content — starts at bottom, slides up as video scrubs */}
+        <div
+          ref={contentRef}
+          className="absolute bottom-0 left-0 right-0 z-10 flex flex-col items-start pb-10 px-5 md:pb-16 md:px-16"
+        >
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 md:mb-6 tracking-wide animate-fade-up drop-shadow-lg">
             Elevated Culinary Experiences
           </h1>
