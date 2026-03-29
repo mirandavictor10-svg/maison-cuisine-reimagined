@@ -29,10 +29,7 @@
     
     /* Motion Tokens */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-    --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
     --duration-slow: 0.8s;
-    --duration-base: 0.5s;
-    --duration-fast: 0.3s;
   }
 }
 
@@ -51,11 +48,21 @@
   }
   
   .btn-elegant {
-    @apply relative px-10 py-5 bg-transparent border border-primary/40 text-primary text-[10px] tracking-[0.4em] uppercase font-medium overflow-hidden transition-all duration-700 hover:border-primary hover:text-primary-foreground group;
+    @apply relative px-10 py-5 bg-transparent border border-primary/40 text-primary text-[10px] tracking-[0.4em] uppercase font-medium transition-all duration-700 hover:border-primary hover:text-primary-foreground;
   }
   
   .btn-elegant::before {
-    @apply content-[''] absolute inset-0 bg-primary translate-y-[101%] transition-transform duration-700 ease-[var(--ease-out-expo)] -z-10 group-hover:translate-y-0;
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: hsl(var(--primary));
+    transform: translateY(101%);
+    z-index: -10;
+    transition: transform var(--duration-slow) var(--ease-out-expo);
+  }
+  
+  .btn-elegant:hover::before {
+    transform: translateY(0);
   }
 
   .heading-section {
