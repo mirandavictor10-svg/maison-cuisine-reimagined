@@ -49,7 +49,7 @@ const HomeHero = () => {
   }, [videoReady]);
 
   return (
-    <section ref={sectionRef} className="relative h-[300vh] w-full">
+    <section ref={sectionRef} className="relative h-[225vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <video
           ref={videoRef}
