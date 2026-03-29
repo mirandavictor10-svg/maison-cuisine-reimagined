@@ -39,6 +39,13 @@
 
     --radius: 0.25rem;
 
+    /* Motion Tokens */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    --duration-slow: 700ms;
+    --duration-medium: 400ms;
+    --duration-fast: 200ms;
+
     /* Custom tokens */
     --hero-overlay: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
     --text-hero: 40 20% 98%;
@@ -103,21 +110,21 @@
 @layer components {
   .heading-display {
     font-family: 'Cormorant Garamond', serif;
-    @apply text-5xl md:text-6xl lg:text-7xl font-light tracking-tight;
+    @apply text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light tracking-tight;
   }
 
   .heading-section {
     font-family: 'Cormorant Garamond', serif;
-    @apply text-3xl md:text-4xl lg:text-5xl font-light;
+    @apply text-4xl md:text-5xl lg:text-6xl font-light leading-tight;
   }
 
   .body-elegant {
     font-family: 'Cormorant Garamond', serif;
-    @apply text-lg md:text-xl leading-relaxed font-light;
+    @apply text-lg md:text-xl lg:text-2xl leading-relaxed font-light;
   }
 
   .nav-link {
-    @apply text-sm tracking-widest uppercase transition-colors duration-300;
+    @apply text-[10px] md:text-xs tracking-[0.2em] uppercase transition-colors duration-500;
   }
 
   .nav-link:hover {
@@ -125,24 +132,29 @@
   }
 
   .btn-elegant {
-    @apply px-8 py-3 border border-foreground/20 bg-transparent text-foreground 
-           text-sm tracking-widest uppercase transition-all duration-300
-           hover:bg-foreground hover:text-background;
+    @apply px-10 py-4 border border-foreground/10 bg-transparent text-foreground 
+           text-[10px] tracking-[0.25em] uppercase transition-all duration-700
+           hover:bg-foreground hover:text-background hover:border-foreground;
   }
 
   .btn-hero {
-    @apply px-8 py-3 border border-white/80 bg-transparent text-white 
-           text-sm tracking-widest uppercase transition-all duration-300
-           hover:bg-white hover:text-charcoal;
+    @apply px-10 py-4 border border-white/40 bg-transparent text-white 
+           text-[10px] tracking-[0.25em] uppercase transition-all duration-700
+           hover:bg-white hover:text-charcoal hover:border-white;
   }
 
   .section-divider {
-    @apply w-24 h-px bg-primary mx-auto;
+    @apply w-16 h-px bg-primary/40 mx-auto;
   }
 
   .hero-text {
     color: hsl(var(--text-hero));
-    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    text-shadow: 0 4px 30px rgba(0,0,0,0.2);
+  }
+
+  /* Editorial Layout Utilities */
+  .grid-editorial {
+    @apply grid grid-cols-12 gap-6 md:gap-8 lg:gap-12;
   }
 }
 
@@ -159,31 +171,7 @@
     color: hsl(var(--gold));
   }
 
-  .animate-fade-up {
-    animation: fadeUp 0.8s ease-out forwards;
-  }
-
-  .animate-fade-in {
-    animation: fadeIn 1s ease-out forwards;
-  }
-
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+  .glass-panel {
+    @apply bg-background/40 backdrop-blur-md border border-white/10;
   }
 }

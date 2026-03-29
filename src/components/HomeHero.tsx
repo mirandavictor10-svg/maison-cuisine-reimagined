@@ -1,11 +1,21 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import PortfolioDialog from "./PortfolioDialog";
 
 const HomeHero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Transform for content slide and opacity
+  const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -16,9 +26,7 @@ const HomeHero = () => {
       setVideoReady(true);
     };
 
-    // canplay is more reliable than loadedmetadata for seeking on mobile
     video.addEventListener("canplay", onReady, { once: true });
-    // Explicitly trigger load — mobile browsers often skip preload
     video.load();
 
     return () => video.removeEventListener("canplay", onReady);
@@ -28,91 +36,74 @@ const HomeHero = () => {
     if (!videoReady) return;
 
     const video = videoRef.current;
-    const section = sectionRef.current;
-    const content = contentRef.current;
-    if (!video || !section || !content) return;
+    if (!video) return;
 
-    let ticking = false;
-
-    const updateVideo = () => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.offsetHeight;
-      const windowHeight = window.innerHeight;
-      const scrollTop = window.scrollY;
-
-      const scrollable = sectionHeight - windowHeight;
-      const progress = Math.max(0, Math.min(1, (scrollTop - sectionTop) / scrollable));
-
-      // Scrub video
-      video.currentTime = progress * video.duration;
-
-      // Slide text up: from bottom toward the darker ceiling area
-      const contentHeight = content.offsetHeight;
-      const topPadding = 96; // clear the navbar
-      const maxTranslate = windowHeight - contentHeight - topPadding;
-      content.style.transform = `translateY(${-progress * maxTranslate}px)`;
-
-      ticking = false;
-    };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(updateVideo);
-        ticking = true;
+    const unsubscribe = scrollYProgress.on("change", (latest) => {
+      // Scrub video progress
+      if (video.duration) {
+        video.currentTime = latest * video.duration;
       }
-    };
+    });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    updateVideo();
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [videoReady]);
+    return () => unsubscribe();
+  }, [videoReady, scrollYProgress]);
 
   return (
-    <section ref={sectionRef} className="relative h-[150vh] md:h-[170vh] w-full">
+    <section ref={sectionRef} className="relative h-[150vh] md:h-[180vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/catering-transition.mp4"
-          poster="/catering-poster.jpg"
-          muted
-          playsInline
-          preload="auto"
-          x-webkit-airplay="deny"
-        />
+        <motion.div style={{ scale }} className="absolute inset-0 w-full h-full">
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            src="/catering-transition.mp4"
+            poster="/catering-poster.jpg"
+            muted
+            playsInline
+            preload="auto"
+          />
+        </motion.div>
 
-        {/* Content — starts at bottom, slides up as video scrubs */}
-        <div
-          ref={contentRef}
-          className="absolute bottom-0 left-0 right-0 z-10 flex flex-col items-start pb-10 px-5 md:pb-16 md:px-16"
+        {/* Content reveal */}
+        <motion.div
+          style={{ y, opacity }}
+          className="absolute bottom-0 left-0 right-0 z-10 flex flex-col items-start pb-16 px-6 md:pb-24 md:px-20 lg:px-32"
         >
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-4 md:mb-6 tracking-wide animate-fade-up drop-shadow-lg">
-            Elevated Culinary Experiences
-          </h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="heading-display text-white mb-6 hero-text"
+          >
+            Elevated <br />
+            <span className="italic">Culinary</span> Experiences
+          </motion.h1>
 
-          <p
-            className="text-white/85 max-w-md md:max-w-xl mb-6 md:mb-10 text-sm sm:text-base md:text-lg leading-relaxed opacity-0 animate-fade-up drop-shadow-md"
-            style={{ animationDelay: "0.2s", animationFillMode: "forwards" }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="body-elegant text-white/90 max-w-xl mb-10 hero-text"
           >
             Maison Cuisine crafts bespoke catering experiences for life's most
             extraordinary moments.
-          </p>
+          </motion.p>
 
-          <div
-            className="flex flex-col sm:flex-row gap-3 md:gap-4 opacity-0 animate-fade-up"
-            style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col sm:flex-row gap-6"
           >
-            <a href="#experience" className="btn-hero text-sm md:text-base">
+            <a href="#experience" className="btn-hero">
               Plan Your Experience
             </a>
             <PortfolioDialog>
-              <button className="px-6 py-3 md:px-8 md:py-4 border border-white/60 text-white hover:bg-white/10 transition-colors duration-300 font-medium tracking-wide text-sm md:text-base">
+              <button className="px-10 py-4 border border-white/30 text-white hover:bg-white/10 transition-all duration-500 font-light tracking-[0.25em] uppercase text-[10px]">
                 View Portfolio
               </button>
             </PortfolioDialog>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,58 +20,83 @@ const servicesLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const handleNavClick = (href: string) => {
     setIsOpen(false);
-    
-    // Extract the hash from the href (e.g., "/#about" -> "#about")
     const hash = href.replace("/", "");
     
     if (location.pathname === "/") {
-      // Already on home page, just scroll to the section
       const element = document.querySelector(hash);
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      // Navigate to home page with hash
       navigate("/" + hash);
     }
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border/50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20">
-          {/* Text Logo */}
-          <Link to="/" className="font-serif text-2xl tracking-wide text-foreground">
-            Maison Cuisine
+    <motion.nav
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
+        scrolled 
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/40 py-4" 
+          : "bg-transparent py-6"
+      }`}
+    >
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="flex items-center justify-between">
+          <Link 
+            to="/" 
+            className={`font-serif text-2xl tracking-[0.1em] transition-colors duration-500 ${
+              scrolled ? "text-foreground" : "text-white"
+            }`}
+          >
+            MAISON CUISINE
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
-            <a
-              href="/#experience"
-              onClick={(e) => {
-                if (location.pathname === "/") {
-                  e.preventDefault();
-                  handleNavClick("/#experience");
-                }
-              }}
-              className="nav-link text-foreground/80 hover:text-foreground text-sm"
-            >
-              Plan Your Experience
-            </a>
+          <div className="hidden lg:flex items-center gap-10">
+            {["Plan Your Experience", "About", "Contact"].map((item) => (
+              <a
+                key={item}
+                href={`/#${item.toLowerCase().replace(/ /g, "")}`}
+                onClick={(e) => {
+                  if (location.pathname === "/") {
+                    e.preventDefault();
+                    handleNavClick(`/#${item.toLowerCase().replace(/ /g, "")}`);
+                  }
+                }}
+                className={`nav-link hover:text-primary ${
+                  scrolled ? "text-foreground/70" : "text-white/80"
+                }`}
+              >
+                {item}
+              </a>
+            ))}
 
-            {/* Services Dropdown */}
             <DropdownMenu open={servicesOpen} onOpenChange={setServicesOpen}>
-              <DropdownMenuTrigger className="nav-link text-foreground/80 hover:text-foreground text-sm flex items-center gap-1 cursor-pointer">
+              <DropdownMenuTrigger 
+                className={`nav-link flex items-center gap-2 cursor-pointer outline-none ${
+                  scrolled ? "text-foreground/70" : "text-white/80"
+                }`}
+              >
                 Services
-                <ChevronDown size={14} />
+                <ChevronDown size={12} className={`transition-transform duration-500 ${servicesOpen ? "rotate-180" : ""}`} />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-background border border-border shadow-lg z-50">
+              <DropdownMenuContent className="bg-background/95 backdrop-blur-xl border border-border/40 shadow-2xl p-2 min-w-[200px] z-50">
                 {servicesLinks.map((link) => (
                   <DropdownMenuItem key={link.name} asChild>
                     <a
@@ -82,7 +108,7 @@ const Navbar = () => {
                         }
                         setServicesOpen(false);
                       }}
-                      className="cursor-pointer text-foreground/80 hover:text-foreground"
+                      className="cursor-pointer nav-link px-4 py-3 block hover:bg-primary/5 rounded-sm"
                     >
                       {link.name}
                     </a>
@@ -92,146 +118,57 @@ const Navbar = () => {
             </DropdownMenu>
 
             <PortfolioDialog>
-              <button className="nav-link text-foreground/80 hover:text-foreground text-sm">
+              <button className={`nav-link ${scrolled ? "text-foreground/70" : "text-white/80"}`}>
                 Portfolio
               </button>
             </PortfolioDialog>
 
-            <a
-              href="/#about"
-              onClick={(e) => {
-                if (location.pathname === "/") {
-                  e.preventDefault();
-                  handleNavClick("/#about");
-                }
-              }}
-              className="nav-link text-foreground/80 hover:text-foreground text-sm"
-            >
-              About
-            </a>
-            <a
-              href="/#contact"
-              onClick={(e) => {
-                if (location.pathname === "/") {
-                  e.preventDefault();
-                  handleNavClick("/#contact");
-                }
-              }}
-              className="nav-link text-foreground/80 hover:text-foreground text-sm"
-            >
-              Contact
-            </a>
             <SampleMenusDialog>
-              <button className="nav-link text-foreground/80 hover:text-foreground text-sm">
+              <button className={`nav-link ${scrolled ? "text-foreground/70" : "text-white/80"}`}>
                 Menus
               </button>
             </SampleMenusDialog>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2"
-            aria-label="Toggle menu"
+            className={`lg:hidden p-2 transition-colors duration-500 ${
+              scrolled ? "text-foreground" : "text-white"
+            }`}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="lg:hidden pb-6 animate-fade-in">
-            <div className="flex flex-col gap-4">
-              <a
-                href="/#experience"
-                onClick={(e) => {
-                  if (location.pathname === "/") {
-                    e.preventDefault();
-                  }
-                  handleNavClick("/#experience");
-                }}
-                className="nav-link text-foreground/80 hover:text-foreground py-2"
-              >
-                Plan Your Experience
-              </a>
-
-              {/* Mobile Services Dropdown */}
-              <button
-                onClick={() => setServicesOpen(!servicesOpen)}
-                className="nav-link text-foreground/80 hover:text-foreground py-2 text-left flex items-center gap-1"
-              >
-                Services
-                <ChevronDown
-                  size={14}
-                  className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-              {servicesOpen && (
-                <div className="pl-4 flex flex-col gap-2">
-                  {servicesLinks.map((link) => (
-                    <a
-                      key={link.name}
-                      href={link.href}
-                      onClick={(e) => {
-                        if (location.pathname === "/") {
-                          e.preventDefault();
-                        }
-                        handleNavClick(link.href);
-                      }}
-                      className="nav-link text-foreground/60 hover:text-foreground py-1"
-                    >
-                      {link.name}
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              <PortfolioDialog>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="nav-link text-foreground/80 hover:text-foreground py-2 text-left w-full"
-                >
-                  Portfolio
-                </button>
-              </PortfolioDialog>
-
-              <a
-                href="/#about"
-                onClick={(e) => {
-                  if (location.pathname === "/") {
-                    e.preventDefault();
-                  }
-                  handleNavClick("/#about");
-                }}
-                className="nav-link text-foreground/80 hover:text-foreground py-2"
-              >
-                About
-              </a>
-              <a
-                href="/#contact"
-                onClick={(e) => {
-                  if (location.pathname === "/") {
-                    e.preventDefault();
-                  }
-                  handleNavClick("/#contact");
-                }}
-                className="nav-link text-foreground/80 hover:text-foreground py-2"
-              >
-                Contact
-              </a>
-              <SampleMenusDialog>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="nav-link text-foreground/80 hover:text-foreground py-2 text-left w-full"
-                >
-                  Menus
-                </button>
-              </SampleMenusDialog>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:hidden overflow-hidden bg-background/95 backdrop-blur-2xl mt-4 rounded-lg border border-border/40"
+            >
+              <div className="flex flex-col p-8 gap-6">
+                {["Plan Your Experience", "About", "Contact", "Portfolio", "Menus"].map((item) => (
+                  <a
+                    key={item}
+                    href={`/#${item.toLowerCase().replace(/ /g, "")}`}
+                    onClick={(e) => {
+                      if (location.pathname === "/") e.preventDefault();
+                      handleNavClick(`/#${item.toLowerCase().replace(/ /g, "")}`);
+                    }}
+                    className="nav-link text-foreground/80 text-lg border-b border-border/20 pb-2"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -50,31 +51,53 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="weddings" className="py-24 lg:py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
-          {/* Left Column - Title */}
-          <div className="lg:col-span-4">
-            <h2 className="heading-section text-foreground sticky top-32">
-              FAQs
+    <section id="faq" className="py-32 lg:py-48 bg-background border-t border-border/10 overflow-hidden">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="grid lg:grid-cols-12 gap-20 lg:gap-32">
+          <motion.div 
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-4"
+          >
+            <span className="text-[10px] tracking-[0.4em] uppercase text-primary mb-6 block">Questions</span>
+            <h2 className="heading-section text-foreground sticky top-40 mb-10">
+              Technical <br /> <span className="italic">Details</span>
             </h2>
-          </div>
+          </motion.div>
 
-          {/* Right Column - Questions */}
-          <div className="lg:col-span-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-8"
+          >
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="border-b border-border/50">
-                  <AccordionTrigger className="font-serif text-xl md:text-2xl font-normal text-left py-6 hover:no-underline hover:text-primary transition-colors">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground text-base leading-relaxed pb-6">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.05 }}
+                >
+                  <AccordionItem value={`item-${index}`} className="border-b border-border/30 last:border-0 p-0">
+                    <AccordionTrigger className="font-serif text-2xl md:text-3xl font-light text-left py-10 hover:no-underline hover:text-primary transition-all duration-500 group">
+                      <span className="flex items-center gap-6">
+                        <span className="text-[10px] tracking-widest text-primary/30 group-hover:text-primary transition-colors">0{index + 1}</span>
+                        {faq.question}
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground body-elegant pb-10 pl-16">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
               ))}
             </Accordion>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

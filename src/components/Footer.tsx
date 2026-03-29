@@ -1,54 +1,88 @@
-import { Instagram, Mail, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-background py-16 lg:py-24">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        <div className="grid md:grid-cols-3 gap-12 lg:gap-20">
-          {/* Brand */}
-          <div>
-            <h3 className="font-serif text-3xl mb-4">Maison Cuisine</h3>
-            <p className="text-background/70 leading-relaxed">
-              Crafting unforgettable culinary experiences for your most cherished celebrations.
+    <footer className="bg-background border-t border-border/10 py-24 lg:py-32 overflow-hidden">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-20 pb-20 border-b border-border/30">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-1"
+          >
+            <Link to="/" className="font-serif text-3xl tracking-widest text-foreground block mb-8">
+              MAISON <br /> CUISINE
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+              Crafting bespoke culinary experiences for life's most extraordinary moments.
             </p>
-          </div>
+          </motion.div>
 
-          {/* Navigation */}
-          <div>
-            <h4 className="text-sm uppercase tracking-widest mb-6 text-background/50">Navigate</h4>
-            <nav className="flex flex-col gap-3">
-              <a href="#experience" className="text-background/70 hover:text-background transition-colors">Plan Your Experience</a>
-              <a href="#events" className="text-background/70 hover:text-background transition-colors">Events</a>
-              <a href="#weddings" className="text-background/70 hover:text-background transition-colors">Weddings</a>
-              <a href="#about" className="text-background/70 hover:text-background transition-colors">About</a>
-            </nav>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-8 block">Navigation</h4>
+            <ul className="space-y-4">
+              {["Experience", "Services", "Portfolio", "About", "Contact"].map((item) => (
+                <li key={item}>
+                  <Link to="/" className="nav-link text-foreground/70 hover:text-primary transition-colors duration-500">
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
 
-          {/* Contact */}
-          <div>
-            <h4 className="text-sm uppercase tracking-widest mb-6 text-background/50">Contact</h4>
-            <div className="flex flex-col gap-4">
-              <a href="mailto:hello@maisoncuisine.com" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors">
-                <Mail size={18} />
-                hello@maisoncuisine.com
-              </a>
-              <a href="tel:+15551234567" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors">
-                <Phone size={18} />
-                +1 (555) 123-4567
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-background/70 hover:text-background transition-colors">
-                <Instagram size={18} />
-                @maisoncuisine
-              </a>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-8 block">Social</h4>
+            <ul className="space-y-4">
+              {["Instagram", "Facebook", "Pinterest", "LinkedIn"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="nav-link text-foreground/70 hover:text-primary transition-colors duration-500">
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <h4 className="text-[10px] tracking-[0.3em] uppercase text-primary mb-8 block">Stay Notified</h4>
+            <p className="text-sm text-muted-foreground mb-6">Receive seasonal updates and menu previews.</p>
+            <div className="flex border-b border-border/50 py-2">
+              <input 
+                type="email" 
+                placeholder="EMAIL ADDRESS" 
+                className="bg-transparent border-none text-[10px] tracking-widest text-foreground placeholder:text-muted-foreground outline-none w-full"
+              />
+              <button className="nav-link hover:text-primary transition-colors text-primary">Join</button>
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Bottom */}
-        <div className="mt-16 pt-8 border-t border-background/10">
-          <p className="text-background/50 text-sm text-center">
-            © {new Date().getFullYear()} Maison Cuisine. All rights reserved.
+        <div className="pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase text-center md:text-left">
+            © {new Date().getFullYear()} Maison Cuisine. All Rights Reserved.
           </p>
+          <div className="flex gap-8">
+            <a href="#" className="text-[10px] tracking-[0.2em] text-muted-foreground hover:text-primary uppercase transition-colors duration-500">Privacy Policy</a>
+            <a href="#" className="text-[10px] tracking-[0.2em] text-muted-foreground hover:text-primary uppercase transition-colors duration-500">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>

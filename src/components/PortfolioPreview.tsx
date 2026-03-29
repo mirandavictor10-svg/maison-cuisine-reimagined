@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -7,54 +8,72 @@ import heroWedding from "@/assets/hero-wedding.jpg";
 import eventsHero from "@/assets/events-hero.jpg";
 
 const previewImages = [
-  { src: heroWedding, alt: "Wedding reception", category: "Events" },
-  { src: gallery1, alt: "Gourmet appetizers", category: "Cuisine" },
-  { src: gallery2, alt: "Elegant venue", category: "Venues" },
-  { src: gallery3, alt: "Dessert display", category: "Cuisine" },
-  { src: eventsHero, alt: "Corporate gala", category: "Events" },
-  { src: gallery4, alt: "Private dining", category: "Venues" },
+  { src: heroWedding, alt: "Wedding reception", category: "Events", size: "col-span-12 md:col-span-8 aspect-[16/9]" },
+  { src: gallery1, alt: "Gourmet appetizers", category: "Cuisine", size: "col-span-12 md:col-span-4 aspect-square" },
+  { src: gallery2, alt: "Elegant venue", category: "Venues", size: "col-span-12 md:col-span-4 aspect-square" },
+  { src: gallery4, alt: "Private dining", category: "Venues", size: "col-span-12 md:col-span-8 aspect-[16/9]" },
+  { src: gallery3, alt: "Dessert display", category: "Cuisine", size: "col-span-12 md:col-span-7 aspect-[4/3]" },
+  { src: eventsHero, alt: "Corporate gala", category: "Events", size: "col-span-12 md:col-span-5 aspect-square" },
 ];
 
 const PortfolioPreview = () => {
   return (
-    <section className="py-24 lg:py-32 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="heading-section text-foreground mb-6">Portfolio</h2>
-          <div className="section-divider mb-8" />
-          <p className="body-elegant text-muted-foreground max-w-2xl mx-auto">
-            A glimpse into the unforgettable experiences we've had the honor of creating.
-          </p>
-        </div>
+    <section className="py-32 lg:py-48 bg-background overflow-hidden">
+      <div className="max-w-screen-2xl mx-auto px-6 md:px-12 lg:px-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-center mb-24 md:mb-32"
+        >
+          <span className="text-[10px] tracking-[0.4em] uppercase text-primary mb-6 block">The Work</span>
+          <h2 className="heading-section text-foreground mb-10">Curated Moments</h2>
+          <div className="section-divider" />
+        </motion.div>
 
-        {/* Preview Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-12">
+        <div className="grid grid-cols-12 gap-6 md:gap-10 lg:gap-16">
           {previewImages.map((image, index) => (
-            <Link
+            <motion.div
               key={index}
-              to="/portfolio"
-              className="group relative aspect-[4/3] overflow-hidden"
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ 
+                duration: 1.2, 
+                delay: index * 0.1, 
+                ease: [0.16, 1, 0.3, 1] 
+              }}
+              className={`${image.size} group relative overflow-hidden bg-muted/20`}
             >
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <span className="text-white text-sm font-medium">{image.category}</span>
-              </div>
-            </Link>
+              <Link to="/portfolio" className="block w-full h-full">
+                <motion.img
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                  src={image.src}
+                  alt={image.alt}
+                  className="w-full h-full object-cover transition-opacity duration-700 group-hover:opacity-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 p-8 flex flex-col justify-end">
+                  <span className="nav-link text-white mb-2">{image.category}</span>
+                  <p className="text-white/60 text-xs tracking-widest uppercase">{image.alt}</p>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
 
-        {/* CTA */}
-        <div className="text-center">
-          <Link to="/portfolio" className="btn-elegant inline-block">
-            View Full Portfolio
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-center mt-24 md:mt-32"
+        >
+          <Link to="/portfolio" className="btn-elegant">
+            Explore Full Portfolio
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

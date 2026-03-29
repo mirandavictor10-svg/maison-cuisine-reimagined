@@ -1,5 +1,6 @@
 import { useState, ReactNode } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Dialog,
   DialogContent,
@@ -31,90 +32,17 @@ interface PortfolioItem {
   alt: string;
   category: "events" | "cuisine" | "venues";
   caption: string;
+  size: string;
   gallery?: string[];
 }
 
 const portfolioItems: PortfolioItem[] = [
-  {
-    id: 1,
-    src: heroWedding,
-    alt: "Black-tie wedding reception",
-    category: "events",
-    caption: "Black-tie wedding reception — 220 guests",
-    gallery: [heroWedding, gallery1, gallery4],
-  },
-  {
-    id: 2,
-    src: gallery1,
-    alt: "Gourmet appetizers",
-    category: "cuisine",
-    caption: "Artisanal passed appetizers — seasonal ingredients",
-    gallery: [gallery1, gallery3],
-  },
-  {
-    id: 3,
-    src: eventsHero,
-    alt: "Corporate gala",
-    category: "events",
-    caption: "Corporate gala — downtown Chicago",
-    gallery: [eventsHero, gallery2],
-  },
-  {
-    id: 4,
-    src: gallery3,
-    alt: "Dessert display",
-    category: "cuisine",
-    caption: "Curated dessert experience — artisan selections",
-    gallery: [gallery3, gallery1],
-  },
-  {
-    id: 5,
-    src: gallery4,
-    alt: "Private dining experience",
-    category: "events",
-    caption: "Private dinner experience — intimate gathering",
-    gallery: [gallery4, heroWedding],
-  },
-  {
-    id: 6,
-    src: chefPortrait,
-    alt: "Chef preparing cuisine",
-    category: "cuisine",
-    caption: "Executive Chef crafting seasonal plates",
-    gallery: [chefPortrait, gallery1],
-  },
-  {
-    id: 7,
-    src: fairlie1,
-    alt: "The Fairlie venue",
-    category: "venues",
-    caption: "The Fairlie",
-    gallery: [fairlie1, fairlie2, fairlie3],
-  },
-  {
-    id: 8,
-    src: loftLucia1,
-    alt: "Loft Lucia venue",
-    category: "venues",
-    caption: "Loft Lucia",
-    gallery: [loftLucia1, loftLucia2],
-  },
-  {
-    id: 9,
-    src: sarabande3,
-    alt: "Sarabande venue",
-    category: "venues",
-    caption: "Sarabande",
-    gallery: [sarabande1, sarabande2, sarabande3],
-  },
-  {
-    id: 10,
-    src: greenhouse1,
-    alt: "GreenHouse Loft venue",
-    category: "venues",
-    caption: "GreenHouse Loft",
-    gallery: [greenhouse1, greenhouse2, greenhouse3],
-  },
+  { id: 1, src: heroWedding, alt: "Wedding reception", category: "events", caption: "Black-tie wedding — 220 guests", size: "col-span-12 md:col-span-8 aspect-[16/9]", gallery: [heroWedding, gallery1, gallery4] },
+  { id: 2, src: gallery1, alt: "Gourmet appetizers", category: "cuisine", caption: "Artisanal passed appetizers", size: "col-span-12 md:col-span-4 aspect-square", gallery: [gallery1, gallery3] },
+  { id: 3, src: eventsHero, alt: "Corporate gala", category: "events", caption: "Corporate gala — Downtown Chicago", size: "col-span-12 md:col-span-4 aspect-square", gallery: [eventsHero, gallery2] },
+  { id: 7, src: fairlie1, alt: "The Fairlie venue", category: "venues", caption: "The Fairlie", size: "col-span-12 md:col-span-8 aspect-[16/9]", gallery: [fairlie1, fairlie2, fairlie3] },
+  { id: 4, src: gallery3, alt: "Dessert display", category: "cuisine", caption: "Curated dessert experience", size: "col-span-12 md:col-span-7 aspect-[4/3]" },
+  { id: 8, src: loftLucia1, alt: "Loft Lucia venue", category: "venues", caption: "Loft Lucia", size: "col-span-12 md:col-span-5 aspect-square", gallery: [loftLucia1, loftLucia2] },
 ];
 
 const filterTabs = [
@@ -134,10 +62,7 @@ const PortfolioDialog = ({ children }: PortfolioDialogProps) => {
   const [currentItem, setCurrentItem] = useState<PortfolioItem | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const filteredItems =
-    activeFilter === "all"
-      ? portfolioItems
-      : portfolioItems.filter((item) => item.category === activeFilter);
+  const filteredItems = activeFilter === "all" ? portfolioItems : portfolioItems.filter((item) => item.category === activeFilter);
 
   const openLightbox = (item: PortfolioItem) => {
     setCurrentItem(item);
@@ -150,48 +75,24 @@ const PortfolioDialog = ({ children }: PortfolioDialogProps) => {
     setCurrentItem(null);
   };
 
-  const nextImage = () => {
-    if (currentItem?.gallery) {
-      setCurrentImageIndex((prev) =>
-        prev === currentItem.gallery!.length - 1 ? 0 : prev + 1
-      );
-    }
-  };
-
-  const prevImage = () => {
-    if (currentItem?.gallery) {
-      setCurrentImageIndex((prev) =>
-        prev === 0 ? currentItem.gallery!.length - 1 : prev - 1
-      );
-    }
-  };
-
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-w-6xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-background">
+      <DialogContent className="max-w-screen-2xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-background border-border/10">
         <div className="h-full flex flex-col overflow-hidden">
-          {/* Header */}
-          <div className="px-6 py-8 text-center border-b border-border/30">
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-2">
-              Our Portfolio
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto text-sm">
-              Explore our curated collection of events, culinary creations, and exceptional venues
-            </p>
+          <div className="px-10 py-12 text-center border-b border-border/10 flex-shrink-0">
+            <span className="text-[10px] tracking-[0.4em] uppercase text-primary mb-4 block">Our Work</span>
+            <h2 className="heading-section text-foreground italic mb-2">Curated Moments</h2>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="py-4 border-b border-border/30 flex-shrink-0">
-            <div className="flex justify-center gap-2 md:gap-6">
+          <div className="py-6 border-b border-border/10 flex-shrink-0 bg-background/50 backdrop-blur-md">
+            <div className="flex justify-center gap-10">
               {filterTabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveFilter(tab.id)}
-                  className={`px-3 py-2 font-serif text-sm tracking-wide transition-all duration-300 border-b-2 ${
-                    activeFilter === tab.id
-                      ? "border-primary text-foreground"
-                      : "border-transparent text-muted-foreground hover:text-foreground"
+                  className={`nav-link pb-2 border-b-2 transition-all duration-700 ${
+                    activeFilter === tab.id ? "border-primary text-foreground" : "border-transparent text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {tab.label}
@@ -200,97 +101,96 @@ const PortfolioDialog = ({ children }: PortfolioDialogProps) => {
             </div>
           </div>
 
-          {/* Portfolio Grid */}
-          <div className="flex-1 overflow-y-auto p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredItems.map((item) => (
-                <div
-                  key={item.id}
-                  onClick={() => openLightbox(item)}
-                  className="group relative aspect-[4/3] overflow-hidden cursor-pointer rounded-sm"
-                >
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300" />
-                  <div className="absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <p className="text-white text-sm font-medium">{item.caption}</p>
-                  </div>
-                  {item.category === "venues" && (
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
-                      <p className="text-white text-sm">{item.caption}</p>
+          <div className="flex-1 overflow-y-auto p-10 md:p-16">
+            <motion.div layout className="grid grid-cols-12 gap-8 lg:gap-12">
+              <AnimatePresence mode="popLayout">
+                {filteredItems.map((item) => (
+                  <motion.div
+                    layout
+                    key={item.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    onClick={() => openLightbox(item)}
+                    className={`${item.size} group relative overflow-hidden bg-muted/20 cursor-pointer shadow-xl rounded-sm`}
+                  >
+                    <motion.img
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                      src={item.src}
+                      alt={item.alt}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-col justify-end p-8">
+                      <span className="nav-link text-white/60 mb-2 block">{item.category}</span>
+                      <p className="font-serif text-lg text-white italic">{item.caption}</p>
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
 
-            {/* CTA */}
-            <div className="text-center mt-8 pb-4">
-              <p className="text-muted-foreground mb-4">Ready to create your own memorable experience?</p>
+            <div className="text-center mt-20 pb-10">
+              <p className="body-elegant text-muted-foreground mb-8 text-sm">Ready to create your own memorable experience?</p>
               <QuestionnaireDialog>
-                <button className="btn-elegant">
-                  Begin Your Journey
-                </button>
+                <button className="btn-elegant">Request a Consultation</button>
               </QuestionnaireDialog>
             </div>
           </div>
         </div>
 
-        {/* Lightbox */}
-        {lightboxOpen && currentItem && (
-          <div className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center">
-            <button
-              onClick={closeLightbox}
-              className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors z-50"
+        <AnimatePresence>
+          {lightboxOpen && currentItem && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[200] bg-background/98 backdrop-blur-2xl flex items-center justify-center p-12 overflow-hidden"
             >
-              <X size={32} />
-            </button>
+              <button onClick={closeLightbox} className="absolute top-10 right-10 text-foreground/60 hover:text-foreground transition-colors z-[210]">
+                <X size={32} />
+              </button>
 
-            {currentItem.gallery && currentItem.gallery.length > 1 && (
-              <>
-                <button
-                  onClick={prevImage}
-                  className="absolute left-4 md:left-8 text-white/80 hover:text-white transition-colors z-50"
-                >
-                  <ChevronLeft size={48} />
-                </button>
-                <button
-                  onClick={nextImage}
-                  className="absolute right-4 md:right-8 text-white/80 hover:text-white transition-colors z-50"
-                >
-                  <ChevronRight size={48} />
-                </button>
-              </>
-            )}
-
-            <div className="max-w-5xl max-h-[80vh] mx-4">
-              <img
-                src={currentItem.gallery?.[currentImageIndex] || currentItem.src}
-                alt={currentItem.alt}
-                className="max-w-full max-h-[70vh] object-contain mx-auto"
-              />
-              <p className="text-white text-center mt-6 font-serif text-lg">
-                {currentItem.caption}
-              </p>
-              {currentItem.gallery && currentItem.gallery.length > 1 && (
-                <div className="flex justify-center gap-2 mt-4">
-                  {currentItem.gallery.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentImageIndex(idx)}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        idx === currentImageIndex ? "bg-white" : "bg-white/40"
-                      }`}
+              <motion.div 
+                initial={{ scale: 0.98, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.98, opacity: 0 }}
+                transition={{ duration: 0.8 }}
+                className="w-full max-w-7xl h-full flex flex-col justify-center gap-12"
+              >
+                <div className="relative aspect-video overflow-hidden rounded-sm bg-muted/20 shadow-2xl">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentImageIndex}
+                      initial={{ opacity: 0, scale: 1.1 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.8 }}
+                      src={currentItem.gallery?.[currentImageIndex] || currentItem.src}
+                      alt={currentItem.alt}
+                      className="w-full h-full object-cover"
                     />
-                  ))}
+                  </AnimatePresence>
+                  
+                  {currentItem.gallery && currentItem.gallery.length > 1 && (
+                    <div className="absolute inset-y-0 inset-x-4 flex items-center justify-between">
+                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i => i === 0 ? currentItem.gallery!.length - 1 : i - 1) }} className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
+                        <ChevronLeft size={24} />
+                      </button>
+                      <button onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(i => i === currentItem.gallery!.length - 1 ? 0 : i + 1) }} className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all">
+                        <ChevronRight size={24} />
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-        )}
+                <div className="text-center">
+                  <h3 className="font-serif text-2xl text-foreground italic">{currentItem.caption}</h3>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </DialogContent>
     </Dialog>
   );
