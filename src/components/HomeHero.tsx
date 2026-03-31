@@ -24,6 +24,21 @@ const HomeHero = () => {
     const onReady = () => {
       video.currentTime = 0;
       setVideoReady(true);
+
+      // Auto-play video to 95% over ~2s on load, before any scrolling
+      const target = video.duration * 0.95;
+      const duration = 2000; // ms
+      const start = performance.now();
+
+      const tick = (now: number) => {
+        const elapsed = now - start;
+        const t = Math.min(1, elapsed / duration);
+        // Ease-out for smooth deceleration
+        const eased = 1 - Math.pow(1 - t, 3);
+        video.currentTime = eased * target;
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
     };
 
     video.addEventListener("canplay", onReady, { once: true });
@@ -39,11 +54,11 @@ const HomeHero = () => {
     if (!video) return;
 
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // Complete the full video in the first 35% of scroll so the
-      // venue reveal finishes well before the user reaches the fold.
+      // The first 95% plays automatically on load.
+      // Scroll maps to the remaining 5% of the video.
       if (video.duration) {
-        const accelerated = Math.min(1, latest / 0.15);
-        video.currentTime = accelerated * video.duration;
+        const scrollPortion = Math.min(1, latest / 0.15);
+        video.currentTime = (0.95 + 0.05 * scrollPortion) * video.duration;
       }
     });
 
