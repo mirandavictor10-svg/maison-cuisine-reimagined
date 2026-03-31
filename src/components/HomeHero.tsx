@@ -49,7 +49,7 @@ const HomeHero = () => {
   }, [videoReady, scrollYProgress]);
 
   return (
-    <section ref={sectionRef} className="relative h-[150vh] md:h-[180vh] w-full">
+    <section ref={sectionRef} className="relative h-[300vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <motion.div style={{ scale }} className="absolute inset-0 w-full h-full">
           <video
