@@ -39,9 +39,11 @@ const HomeHero = () => {
     if (!video) return;
 
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      // Scrub video progress
+      // Complete the full video in the first 35% of scroll so the
+      // venue reveal finishes well before the user reaches the fold.
       if (video.duration) {
-        video.currentTime = latest * video.duration;
+        const accelerated = Math.min(1, latest / 0.35);
+        video.currentTime = accelerated * video.duration;
       }
     });
 
