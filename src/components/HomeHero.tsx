@@ -42,7 +42,7 @@ const HomeHero = () => {
       // Complete the full video in the first 35% of scroll so the
       // venue reveal finishes well before the user reaches the fold.
       if (video.duration) {
-        const accelerated = Math.min(1, latest / 0.35);
+        const accelerated = Math.min(1, latest / 0.15);
         video.currentTime = accelerated * video.duration;
       }
     });
@@ -51,7 +51,7 @@ const HomeHero = () => {
   }, [videoReady, scrollYProgress]);
 
   return (
-    <section ref={sectionRef} className="relative h-[200vh] w-full">
+    <section ref={sectionRef} className="relative h-[130vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <motion.div style={{ scale }} className="absolute inset-0 w-full h-full">
           <video
